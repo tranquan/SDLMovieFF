@@ -51,6 +51,8 @@
 		BA96F07419DCF7CB00459533 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F07319DCF7CB00459533 /* CoreData.framework */; };
 		BA96F0A319DD010800459533 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A119DD010800459533 /* CoreAudio.framework */; };
 		BA96F0A419DD010800459533 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A219DD010800459533 /* CoreAudioKit.framework */; };
+		BA96F0A719DD281900459533 /* CoreMediaIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A519DD281900459533 /* CoreMediaIO.framework */; };
+		BA96F0A819DD281900459533 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A619DD281900459533 /* IOKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,8 @@
 		BA96F07319DCF7CB00459533 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		BA96F0A119DD010800459533 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		BA96F0A219DD010800459533 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
+		BA96F0A519DD281900459533 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
+		BA96F0A619DD281900459533 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA96F0A719DD281900459533 /* CoreMediaIO.framework in Frameworks */,
+				BA96F0A819DD281900459533 /* IOKit.framework in Frameworks */,
 				BA96F0A319DD010800459533 /* CoreAudio.framework in Frameworks */,
 				BA96F0A419DD010800459533 /* CoreAudioKit.framework in Frameworks */,
 				BA96F07419DCF7CB00459533 /* CoreData.framework in Frameworks */,
@@ -268,8 +274,10 @@
 				BA96F0A219DD010800459533 /* CoreAudioKit.framework */,
 				BA96F07319DCF7CB00459533 /* CoreData.framework */,
 				BA96F06D19DCF64C00459533 /* CoreFoundation.framework */,
+				BA96F0A519DD281900459533 /* CoreMediaIO.framework */,
 				BA1A900B19DCF396003DEB96 /* CoreVideo.framework */,
 				BA96F07119DCF66900459533 /* Foundation.framework */,
+				BA96F0A619DD281900459533 /* IOKit.framework */,
 				BA1A900C19DCF396003DEB96 /* VideoDecodeAcceleration.framework */,
 				BA1A901619DCF3EF003DEB96 /* libpng16.a */,
 			);

@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 #include <libavcodec/avcodec.h>
+#include <libavdevice/avdevice.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 
@@ -591,7 +592,7 @@ void SaveFrame(AVFrame *pFrame, int width, int height, int iFrame) {
   return 0;
 }
 
-#pragma mark - play audio only
+#pragma mark - play mono audio only
 
 #define SDL_AUDIO_BUFFER_SIZE 1024
 #define MAX_AUDIO_FRAME_SIZE 192000
@@ -609,7 +610,7 @@ PacketQueue audioq;
 int quit = 0;
 
 void packet_queue_init(PacketQueue *q) {
-  memset(q, 0, sizeof(PacketQueue));
+  memset(q, 0, sizeof(PacketQueue)); // init all members is NULL
   q->mutex = SDL_CreateMutex();
   q->cond = SDL_CreateCond();
 }
@@ -625,7 +626,6 @@ int packet_queue_put(PacketQueue *q, AVPacket *pkt) {
     return -1;
   pkt1->pkt = *pkt;
   pkt1->next = NULL;
-  
   
   SDL_LockMutex(q->mutex);
   
@@ -679,6 +679,8 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block) {
 
 int audio_decode_frame(AVCodecContext *aCodecCtx, uint8_t *audio_buf, int buf_size) {
   
+  // because this is static, so we can keep over audio package for next decode
+  // package only free when all of its data is decoded 
   static AVPacket pkt;
   static uint8_t *audio_pkt_data = NULL;
   static int audio_pkt_size = 0;
@@ -687,6 +689,8 @@ int audio_decode_frame(AVCodecContext *aCodecCtx, uint8_t *audio_buf, int buf_si
   int len1, data_size = 0;
   
   for(;;) {
+    // decode package into frames
+    // copy frame to audio buffer and return
     while(audio_pkt_size > 0) {
       int got_frame = 0;
       len1 = avcodec_decode_audio4(aCodecCtx, &frame, &got_frame, &pkt);
@@ -717,8 +721,10 @@ int audio_decode_frame(AVCodecContext *aCodecCtx, uint8_t *audio_buf, int buf_si
       /* We have data, return it and come back for more later */
       return data_size;
     }
-    if(pkt.data)
+    
+    if(pkt.data) {
       av_free_packet(&pkt);
+    }
     
     if(quit) {
       return -1;
@@ -734,13 +740,20 @@ int audio_decode_frame(AVCodecContext *aCodecCtx, uint8_t *audio_buf, int buf_si
 
 void audio_callback(void *userdata, Uint8 *stream, int len) {
   
+  // len here is 2048 while we define SDL_AUDIO_BUFFER_SIZE is 1024
+  // fprintf(stderr, "buffer len: %d\n", len);
+  
   AVCodecContext *aCodecCtx = (AVCodecContext *)userdata;
   int len1, audio_size;
   
+  // because this is static, so we can kee over data for next callback
   static uint8_t audio_buf[(MAX_AUDIO_FRAME_SIZE * 3) / 2];
   static unsigned int audio_buf_size = 0;
   static unsigned int audio_buf_index = 0;
   
+  // each loop we decode a frame and fill to buffer
+  // if size of frame decode > frame of buffer can write, then
+  // we just write enough
   while(len > 0) {
     if(audio_buf_index >= audio_buf_size) {
       /* We have already sent all our data; get more */
@@ -755,8 +768,12 @@ void audio_callback(void *userdata, Uint8 *stream, int len) {
       audio_buf_index = 0;
     }
     len1 = audio_buf_size - audio_buf_index;
-    if(len1 > len)
+    // len1 of decode result > len can write
+    // just write enough, save the over data for next callback
+    if(len1 > len) {
+      // fprintf(stderr, "keep for next callback data size: %d\n", len1-len);
       len1 = len;
+    }
     memcpy(stream, (uint8_t *)audio_buf + audio_buf_index, len1);
     len -= len1;
     stream += len1;
@@ -829,9 +846,10 @@ void audio_callback(void *userdata, Uint8 *stream, int len) {
     return -1;
   
   aCodecCtx=pFormatCtx->streams[audioStream]->codec;
-  
-  // Dump audio codec info
-  fprintf(stderr, "Samles rates: %d, Channels: %d\n", aCodecCtx->sample_rate, aCodecCtx->channels);
+    
+  // Dump desired audio codec info
+  fprintf(stderr, "Requested samples rate: %d, Channels: %d, Bit rate: %d\n", aCodecCtx->sample_rate, aCodecCtx->channels, aCodecCtx->bit_rate);
+  fprintf(stderr, "Requested samples format: %d - %d\n", aCodecCtx->sample_fmt, AV_SAMPLE_FMT_S16P);
   
   // Set audio settings from codec info
   wanted_spec.freq = aCodecCtx->sample_rate;
@@ -846,6 +864,11 @@ void audio_callback(void *userdata, Uint8 *stream, int len) {
     fprintf(stderr, "SDL_OpenAudio: %s\n", SDL_GetError());
     return -1;
   }
+  
+  // Dump actually audio codec info
+  fprintf(stderr, "Actual samples rate: %d, Channels: %d, Padding: %d\n", spec.samples, spec.channels, spec.padding);
+  fprintf(stderr, "Actual samples format: %d - %d\n", spec.format, AV_SAMPLE_FMT_S16P);
+  
   aCodec = avcodec_find_decoder(aCodecCtx->codec_id);
   if(!aCodec) {
     fprintf(stderr, "Unsupported codec!\n");
@@ -950,6 +973,8 @@ void audio_callback(void *userdata, Uint8 *stream, int len) {
         av_free_packet(&packet);
       }
     } else if(packet.stream_index==audioStream) {
+      // we don't free packet after we put it to queue
+      // we'll free it later after decode it
       packet_queue_put(&audioq, &packet);
     } else {
       av_free_packet(&packet);

@@ -18,7 +18,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  NSString *filePath = @"/Users/Kenji/Documents/wow-lichking-360.mp4";
+  NSString *filePath = @"/Users/Kenji/Documents/starcraft-opening-mono.mp4";
   
 //  [[KJFFmpeg sharedInstance] readVideoInfoAndExtractSampleFramesWithFile:filePath];
   
@@ -26,7 +26,8 @@
   
 //  [[KJFFmpeg sharedInstance] playVideoOnlyBySDLWithFile:filePath];
   
-  [[KJFFmpeg sharedInstance] playAudioOnlyBySDLWithFile:filePath];
+  int ret = [[KJFFmpeg sharedInstance] playAudioOnlyBySDLWithFile:filePath];
+  NSLog(@"result: %@", (ret == 0 ? @"SUCCESS" : @"FAILED"));
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

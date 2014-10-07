@@ -44,6 +44,7 @@
 		BA1A903819DCF4DA003DEB96 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BA1A903619DCF4DA003DEB96 /* libz.dylib */; };
 		BA1A903A19DCF4E8003DEB96 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BA1A903919DCF4E8003DEB96 /* libiconv.dylib */; };
 		BA1A903C19DCF4FE003DEB96 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA1A903B19DCF4FE003DEB96 /* libmp3lame.a */; };
+		BA264FFA19E3DCAF001F5EA2 /* libavresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA264FF919E3DCAF001F5EA2 /* libavresample.a */; };
 		BA96F06C19DCF64700459533 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F06B19DCF64700459533 /* Cocoa.framework */; };
 		BA96F06E19DCF64C00459533 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F06D19DCF64C00459533 /* CoreFoundation.framework */; };
 		BA96F07019DCF66300459533 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F06F19DCF66300459533 /* AppKit.framework */; };
@@ -110,6 +111,7 @@
 		BA1A903619DCF4DA003DEB96 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BA1A903919DCF4E8003DEB96 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		BA1A903B19DCF4FE003DEB96 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmp3lame.a; path = /usr/local/Cellar/lame/3.99.5/lib/libmp3lame.a; sourceTree = "<absolute>"; };
+		BA264FF919E3DCAF001F5EA2 /* libavresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libavresample.a; path = /usr/local/Cellar/ffmpeg/2.3.3/lib/libavresample.a; sourceTree = "<absolute>"; };
 		BA96F06B19DCF64700459533 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BA96F06D19DCF64C00459533 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		BA96F06F19DCF66300459533 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -128,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA264FFA19E3DCAF001F5EA2 /* libavresample.a in Frameworks */,
 				BA96F0A719DD281900459533 /* CoreMediaIO.framework in Frameworks */,
 				BA96F0A819DD281900459533 /* IOKit.framework in Frameworks */,
 				BA96F0A319DD010800459533 /* CoreAudio.framework in Frameworks */,
@@ -245,6 +248,7 @@
 		BA1A900F19DCF3A4003DEB96 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				BA264FF919E3DCAF001F5EA2 /* libavresample.a */,
 				BA1A901019DCF3EF003DEB96 /* libass.a */,
 				BA1A8FFB19DCF371003DEB96 /* libavcodec.a */,
 				BA1A8FFC19DCF371003DEB96 /* libavdevice.a */,
@@ -532,6 +536,11 @@
 					/usr/local/Cellar/xvid/1.3.2/lib,
 					/usr/local/Cellar/yasm/1.3.0/lib,
 					/usr/local/Cellar/lame/3.99.5/lib,
+					/usr/local/Cellar/ffmpeg/2.3.3/lib,
+				);
+				OTHER_CFLAGS = (
+					"-D__RESAMPLER__",
+					"-D__LIBAVRESAMPLE__",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -568,6 +577,11 @@
 					/usr/local/Cellar/xvid/1.3.2/lib,
 					/usr/local/Cellar/yasm/1.3.0/lib,
 					/usr/local/Cellar/lame/3.99.5/lib,
+					/usr/local/Cellar/ffmpeg/2.3.3/lib,
+				);
+				OTHER_CFLAGS = (
+					"-D__RESAMPLER__",
+					"-D__LIBAVRESAMPLE__",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

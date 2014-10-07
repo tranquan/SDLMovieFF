@@ -32,7 +32,7 @@
 //  int ret = [[KJFFmpeg sharedInstance] playAudioOnlyBySDLWithFile:filePath];
   
   // tut 4: play video with audio
-//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoFile:filePath];
+  int ret = [[KJFFmpegPlayer sharedInstance] playVideoFile:filePath];
   
   // tut 5: play video sync to audio
 //  int ret = [[KJFFmpegPlayer sharedInstance] playVideoSyncToAudioWithFile:filePath];
@@ -41,7 +41,7 @@
 //  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioSyncedWithFile:filePath];
   
   // tut 7: play video with seek feature
-  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioCanSeekWithFile:filePath];
+//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioCanSeekWithFile:filePath];
   
   NSLog(@"result: %@", (ret == 0 ? @"SUCCESS" : @"FAILED"));
 }

@@ -53,6 +53,7 @@
 		BA96F0A419DD010800459533 /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A219DD010800459533 /* CoreAudioKit.framework */; };
 		BA96F0A719DD281900459533 /* CoreMediaIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A519DD281900459533 /* CoreMediaIO.framework */; };
 		BA96F0A819DD281900459533 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A619DD281900459533 /* IOKit.framework */; };
+		BABB8F7E19DE8705005D3758 /* KJFFmpegPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BABB8F7D19DE8705005D3758 /* KJFFmpegPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,8 @@
 		BA96F0A219DD010800459533 /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		BA96F0A519DD281900459533 /* CoreMediaIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMediaIO.framework; path = System/Library/Frameworks/CoreMediaIO.framework; sourceTree = SDKROOT; };
 		BA96F0A619DD281900459533 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		BABB8F7C19DE8705005D3758 /* KJFFmpegPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJFFmpegPlayer.h; sourceTree = "<group>"; };
+		BABB8F7D19DE8705005D3758 /* KJFFmpegPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJFFmpegPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +205,8 @@
 			children = (
 				BA1A903219DCF47B003DEB96 /* KJFFmpeg.h */,
 				BA1A903319DCF47B003DEB96 /* KJFFmpeg.m */,
+				BABB8F7C19DE8705005D3758 /* KJFFmpegPlayer.h */,
+				BABB8F7D19DE8705005D3758 /* KJFFmpegPlayer.m */,
 				BA1A8FDF19DCF1A5003DEB96 /* AppDelegate.h */,
 				BA1A8FE019DCF1A5003DEB96 /* AppDelegate.m */,
 				BA1A8FE219DCF1A5003DEB96 /* Images.xcassets */,
@@ -385,6 +390,7 @@
 			files = (
 				BA1A903419DCF47B003DEB96 /* KJFFmpeg.m in Sources */,
 				BA1A8FE119DCF1A5003DEB96 /* AppDelegate.m in Sources */,
+				BABB8F7E19DE8705005D3758 /* KJFFmpegPlayer.m in Sources */,
 				BA1A8FDE19DCF1A5003DEB96 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

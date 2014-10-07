@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "KJFFmpeg.h"
+#import "KJFFmpegPlayer.h"
 
 @interface AppDelegate ()
 
@@ -18,15 +19,30 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  NSString *filePath = @"/Users/Kenji/Documents/starcraft-opening-mono.mp4";
+  NSString *filePath = @"/Users/Kenji/Documents/fmle.mp4";
+//  NSString *filePath = @"rtp://192.168.0.51:5004/";
   
-//  [[KJFFmpeg sharedInstance] readVideoInfoAndExtractSampleFramesWithFile:filePath];
+//  int ret = [[KJFFmpeg sharedInstance] readVideoInfoAndExtractSampleFramesWithFile:filePath];
   
 //  [[KJFFmpeg sharedInstance] readVideoInfoAndExtractYUVFramesWithFile:filePath];
   
-//  [[KJFFmpeg sharedInstance] playVideoOnlyBySDLWithFile:filePath];
+//  int ret = [[KJFFmpeg sharedInstance] playVideoOnlyBySDLWithFile:filePath];
   
-  int ret = [[KJFFmpeg sharedInstance] playAudioOnlyBySDLWithFile:filePath];
+  // tut 3: play video only
+//  int ret = [[KJFFmpeg sharedInstance] playAudioOnlyBySDLWithFile:filePath];
+  
+  // tut 4: play video with audio
+//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoFile:filePath];
+  
+  // tut 5: play video sync to audio
+//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoSyncToAudioWithFile:filePath];
+  
+  // tut 6: play video, audio can sync to: audio (default), video or system clock
+//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioSyncedWithFile:filePath];
+  
+  // tut 7: play video with seek feature
+  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioCanSeekWithFile:filePath];
+  
   NSLog(@"result: %@", (ret == 0 ? @"SUCCESS" : @"FAILED"));
 }
 

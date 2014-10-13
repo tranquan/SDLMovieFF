@@ -20,7 +20,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  NSString *filePath = @"/Users/Kenji/Documents/rongreu.mp3";
+    NSString *filePath = @"/Users/Kenji/Documents/rongreu_raw_lei.caf";
+//  NSString *filePath = @"/Users/Kenji/Documents/rongreu.mp3";
 //  NSString *filePath = @"rtp://192.168.0.51:5004/";
   
 //  int ret = [[KJFFmpeg sharedInstance] readVideoInfoAndExtractSampleFramesWithFile:filePath];

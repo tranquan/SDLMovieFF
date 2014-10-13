@@ -78,7 +78,7 @@
   AudioStreamBasicDescription asbd;
   asbd.mFormatID = kAudioFormatLinearPCM;
   asbd.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-  asbd.mSampleRate = 44100.0;
+  asbd.mSampleRate = 44100;
   asbd.mFramesPerPacket = 1;
   asbd.mBytesPerFrame = 4;
   asbd.mBytesPerPacket = 4;
@@ -92,7 +92,7 @@
              "AudioQueueNewOutput failed");
 
   // init queue with three empty buffers
-  is->ca_audio_buffer_size = 32*1024;
+  is->ca_audio_buffer_size = 36*1024;
   AudioQueueBufferRef buffers[3];
   for (int i=0; i < 3; i++) {
     check_error(AudioQueueAllocateBuffer(queue, is->ca_audio_buffer_size, &buffers[i]),
@@ -105,6 +105,73 @@
   
   // start queue
   check_error(AudioQueueStart(queue, NULL), "AudioQueueStart failed");
+  
+  // init resamle if needed
+#ifdef __RESAMPLER__
+  
+  if (audio_index >= 0 &&
+      pFormatCtx->streams[audio_index]->codec->sample_fmt != AV_SAMPLE_FMT_S16) {
+    
+    is->audio_need_resample = 1;
+    is->pResampledOut = NULL;
+    is->pSwrCtx = NULL;
+    
+    printf("Configure resampler: ");
+    
+#ifdef __LIBAVRESAMPLE__
+    printf("libAvResample\n");
+    is->pSwrCtx = avresample_alloc_context();
+#endif
+    
+#ifdef __LIBSWRESAMPLE__
+    printf("libSwResample\n");
+    is->pSwrCtx = swr_alloc();
+#endif
+    
+    // Some MP3/WAV don't tell this so make assumtion that
+    // They are stereo not 5.1
+    if (pFormatCtx->streams[audio_index]->codec->channel_layout == 0 &&
+        pFormatCtx->streams[audio_index]->codec->channels == 2) {
+      pFormatCtx->streams[audio_index]->codec->channel_layout = AV_CH_LAYOUT_STEREO;
+      
+    } else if (pFormatCtx->streams[audio_index]->codec->channel_layout == 0 &&
+               pFormatCtx->streams[audio_index]->codec->channels == 1) {
+      pFormatCtx->streams[audio_index]->codec->channel_layout = AV_CH_LAYOUT_MONO;
+      
+    } else if (pFormatCtx->streams[audio_index]->codec->channel_layout == 0 &&
+               pFormatCtx->streams[audio_index]->codec->channels == 0) {
+      pFormatCtx->streams[audio_index]->codec->channel_layout = AV_CH_LAYOUT_STEREO;
+      pFormatCtx->streams[audio_index]->codec->channels = 2;
+    }
+    
+    av_opt_set_int(is->pSwrCtx, "in_channel_layout",
+                   pFormatCtx->streams[audio_index]->codec->channel_layout, 0);
+    av_opt_set_int(is->pSwrCtx, "in_sample_fmt",
+                   pFormatCtx->streams[audio_index]->codec->sample_fmt, 0);
+    av_opt_set_int(is->pSwrCtx, "in_sample_rate",
+                   pFormatCtx->streams[audio_index]->codec->sample_rate, 0);
+    
+    av_opt_set_int(is->pSwrCtx, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
+    av_opt_set_int(is->pSwrCtx, "out_sample_fmt", AV_SAMPLE_FMT_S16, 0);
+    av_opt_set_int(is->pSwrCtx, "out_sample_rate", 44100, 0);
+    
+#ifdef __LIBAVRESAMPLE__
+    
+    if (avresample_open(is->pSwrCtx) < 0) {
+#else
+      
+      if (swr_init(is->pSwrCtx) < 0) {
+#endif
+        fprintf(stderr, " ERROR!! From Samplert: %d Hz Sample format: %s\n",
+                pFormatCtx->streams[audio_index]->codec->sample_rate,
+                av_get_sample_fmt_name(pFormatCtx->streams[audio_index]->codec->sample_fmt));
+        fprintf(stderr, "         To 44100 Sample format: s16\n");
+        is->audio_need_resample = 0;
+        is->pSwrCtx = NULL;;
+      }
+    }
+    
+#endif
   
   // main decode loop
   AVPacket pkt, *packet = &pkt;

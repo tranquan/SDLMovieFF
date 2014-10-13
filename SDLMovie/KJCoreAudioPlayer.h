@@ -13,4 +13,13 @@
 + (KJCoreAudioPlayer *)sharedInstance;
 - (int)playAudioWithFile:(NSString *)filePath;
 
+// open and ready to play
+// filePath can be stream or local file
+- (int)openAudioWithFile:(NSString *)filePath;
+
+// controls
+- (int)play;
+- (int)pause;
+- (int)stop;
+
 @end

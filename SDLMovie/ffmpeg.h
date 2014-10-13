@@ -100,6 +100,21 @@ struct VideoState {
 
   AVIOContext     *io_context;
   struct SwsContext *sws_ctx;
+  
+#ifdef __RESAMPLER__
+  uint8_t         audio_need_resample;
+#ifdef __LIBAVRESAMPLE__
+  AVAudioResampleContext *pSwrCtx;
+#endif
+  
+#ifdef __LIBSWRESAMPLE__
+  SwrContext *pSwrCtx;
+#endif
+  uint8_t *pResampledOut;
+  int resample_lines;
+  uint64_t resample_size;
+#endif
+  
 };
 typedef struct VideoState VideoState;
 
@@ -111,8 +126,11 @@ int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block);
 int stream_component_open(VideoState *is, int stream_index);
 
 int audio_decode_frame(VideoState *is, double *pts_ptr);
+int audio_decode_frame2(VideoState *is, double *pts_ptr);
 void audioqueue_output_callback(void *inUserData,
                                 AudioQueueRef inAQ,
                                 AudioQueueBufferRef inCompleteAQBuffer);
+
+long audio_tutorial_resample(VideoState *is, struct AVFrame *inframe);
 
 #endif /* defined(__SDLMovie__ffmpeg__) */

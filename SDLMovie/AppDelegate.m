@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "KJFFmpeg.h"
 #import "KJFFmpegPlayer.h"
+#import "KJCoreAudioPlayer.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +20,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-  NSString *filePath = @"/Users/Kenji/Documents/fmle.mp4";
+  NSString *filePath = @"/Users/Kenji/Documents/rongreu.mp3";
 //  NSString *filePath = @"rtp://192.168.0.51:5004/";
   
 //  int ret = [[KJFFmpeg sharedInstance] readVideoInfoAndExtractSampleFramesWithFile:filePath];
@@ -32,7 +33,7 @@
 //  int ret = [[KJFFmpeg sharedInstance] playAudioOnlyBySDLWithFile:filePath];
   
   // tut 4: play video with audio
-  int ret = [[KJFFmpegPlayer sharedInstance] playVideoFile:filePath];
+//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoFile:filePath];
   
   // tut 5: play video sync to audio
 //  int ret = [[KJFFmpegPlayer sharedInstance] playVideoSyncToAudioWithFile:filePath];
@@ -42,6 +43,9 @@
   
   // tut 7: play video with seek feature
 //  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioCanSeekWithFile:filePath];
+  
+  // play with core audio
+  int ret = [[KJCoreAudioPlayer sharedInstance] playAudioWithFile:filePath];
   
   NSLog(@"result: %@", (ret == 0 ? @"SUCCESS" : @"FAILED"));
 }

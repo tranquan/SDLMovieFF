@@ -20,8 +20,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   
-    NSString *filePath = @"/Users/Kenji/Documents/rongreu_raw_lei.caf";
-//  NSString *filePath = @"/Users/Kenji/Documents/rongreu.mp3";
+//    NSString *filePath = @"/Users/Kenji/Documents/rongreu_raw_lei.caf";
+  NSString *filePath = @"/Users/Kenji/Documents/starcraft-opening.mp4";
 //  NSString *filePath = @"rtp://192.168.0.51:5004/";
   
 //  int ret = [[KJFFmpeg sharedInstance] readVideoInfoAndExtractSampleFramesWithFile:filePath];
@@ -43,10 +43,10 @@
 //  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioSyncedWithFile:filePath];
   
   // tut 7: play video with seek feature
-//  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioCanSeekWithFile:filePath];
+  int ret = [[KJFFmpegPlayer sharedInstance] playVideoAudioCanSeekWithFile:filePath];
   
   // play with core audio
-  int ret = [[KJCoreAudioPlayer sharedInstance] playAudioWithFile:filePath];
+//  int ret = [[KJCoreAudioPlayer sharedInstance] playAudioWithFile:filePath];
   
   NSLog(@"result: %@", (ret == 0 ? @"SUCCESS" : @"FAILED"));
 }

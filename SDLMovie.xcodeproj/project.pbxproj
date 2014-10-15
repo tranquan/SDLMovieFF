@@ -56,8 +56,6 @@
 		BA96F0A819DD281900459533 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA96F0A619DD281900459533 /* IOKit.framework */; };
 		BA99689E19E77E8F005AB57B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA99689D19E77E8F005AB57B /* AudioToolbox.framework */; };
 		BABB8F7E19DE8705005D3758 /* KJFFmpegPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BABB8F7D19DE8705005D3758 /* KJFFmpegPlayer.m */; };
-		BAC3886019E69E1B003277A2 /* KJCoreAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BAC3885F19E69E1B003277A2 /* KJCoreAudioPlayer.m */; };
-		BAD2267419EB74E4004A6950 /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = BAD2267219EB74E4004A6950 /* ffmpeg.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,10 +125,6 @@
 		BA99689D19E77E8F005AB57B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		BABB8F7C19DE8705005D3758 /* KJFFmpegPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJFFmpegPlayer.h; sourceTree = "<group>"; };
 		BABB8F7D19DE8705005D3758 /* KJFFmpegPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJFFmpegPlayer.m; sourceTree = "<group>"; };
-		BAC3885E19E69E1B003277A2 /* KJCoreAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJCoreAudioPlayer.h; sourceTree = "<group>"; };
-		BAC3885F19E69E1B003277A2 /* KJCoreAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KJCoreAudioPlayer.m; sourceTree = "<group>"; };
-		BAD2267219EB74E4004A6950 /* ffmpeg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg.c; sourceTree = "<group>"; };
-		BAD2267319EB74E4004A6950 /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,10 +213,6 @@
 				BA1A903319DCF47B003DEB96 /* KJFFmpeg.m */,
 				BABB8F7C19DE8705005D3758 /* KJFFmpegPlayer.h */,
 				BABB8F7D19DE8705005D3758 /* KJFFmpegPlayer.m */,
-				BAC3885E19E69E1B003277A2 /* KJCoreAudioPlayer.h */,
-				BAC3885F19E69E1B003277A2 /* KJCoreAudioPlayer.m */,
-				BAD2267319EB74E4004A6950 /* ffmpeg.h */,
-				BAD2267219EB74E4004A6950 /* ffmpeg.c */,
 				BA1A8FDF19DCF1A5003DEB96 /* AppDelegate.h */,
 				BA1A8FE019DCF1A5003DEB96 /* AppDelegate.m */,
 				BA1A8FE219DCF1A5003DEB96 /* Images.xcassets */,
@@ -406,10 +396,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAD2267419EB74E4004A6950 /* ffmpeg.c in Sources */,
 				BA1A903419DCF47B003DEB96 /* KJFFmpeg.m in Sources */,
 				BA1A8FE119DCF1A5003DEB96 /* AppDelegate.m in Sources */,
-				BAC3886019E69E1B003277A2 /* KJCoreAudioPlayer.m in Sources */,
 				BABB8F7E19DE8705005D3758 /* KJFFmpegPlayer.m in Sources */,
 				BA1A8FDE19DCF1A5003DEB96 /* main.m in Sources */,
 			);

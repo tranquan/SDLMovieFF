@@ -262,7 +262,6 @@ int audio_decode_frame2(VideoState *is, double *pts_ptr) {
     while(is->audio_pkt_size > 0) {
       int got_frame = 0;
       len1 = avcodec_decode_audio4(is->audio_st->codec, &is->audio_frame, &got_frame, pkt);
-      fprintf(stderr, "frame rate: %d", is->audio_frame.nb_samples);
       
       if(len1 < 0) {
         /* if error, skip frame */

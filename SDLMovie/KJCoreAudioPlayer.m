@@ -78,7 +78,7 @@
   AudioStreamBasicDescription asbd;
   asbd.mFormatID = kAudioFormatLinearPCM;
   asbd.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-  asbd.mSampleRate = 44100;
+  asbd.mSampleRate = 44100.0;
   asbd.mFramesPerPacket = 1;
   asbd.mBytesPerFrame = 4;
   asbd.mBytesPerPacket = 4;
